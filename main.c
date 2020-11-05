@@ -77,6 +77,30 @@ void escreve_saldo(char* filename, float valor){
     fclose(file);
 }
 
+int Cadastramento(){
+    FILE *cadastro_receita;
+    int fflush(FILE *cadastro_receita);
+    char descricao[100];
+    int data[3];
+    int cadastro;
+    int op;
+
+    puts("=============");
+    puts("\nVoce esta em uma: 1 - receita? ou 2 - gasto");
+    pegar_input(&cadastro, 1, 2, "Numero digitado invalido, digite novamente: ");
+
+    puts("\nQual categoria deseja cadastrar? 1 - Moradia, 2 - Estudos, 3 - Transporte, 4 - Alimentacao, 5 - Trabalho: ");
+    pegar_input(&op, 1, 5, "Numero digitado invalido, digite novamente: ");
+
+    cadastro_receita = fopen("Receita.txt", "a+");
+
+    char log[1000] = "";
+    char valor_msg[100] = "";
+    char descricao_msg[100] = "";
+    char msg_final[100] = "";
+
+}
+
 //-------------------- Função main -----------------------/
 int main() {
     printf("Sua conta começou, e voce inicialmente possui ou possuia um saldo de R$100,00\n");
