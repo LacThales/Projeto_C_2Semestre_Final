@@ -120,6 +120,32 @@ int Cadastramento(){
     categoria[2] = "Categorização: Transporte\n";
     categoria[3] = "Categorização: Alimentação\n";
     categoria[4] = "Categorização: Trabalho\n";
+    strcat(log, pega_string_lista(&op, categoria, 5));
+    char filename[50] = "Saldo.txt";
+    float saldo = obter_saldo(filename);
+
+    float saldo_momentaneo = 0;
+    printf("%s",valor_msg);
+    scanf("%f", &saldo_momentaneo);
+
+    float resultado = saldo + (saldo_momentaneo * multiplicador);
+
+    printf(descricao_msg);
+    scanf("%c", descricao);
+    fgets(descricao,100,stdin);
+    char descricao_valor[100];
+    sprintf(descricao_valor,"Descrição: %s", descricao);
+    strcat(log, descricao_valor);
+
+    char valor_convertido[100];
+    if (cadastro == 1){
+        sprintf(valor_convertido, "Valor adicionado a conta: +R$%.2f\n", saldo_momentaneo);
+    }
+    else if (cadastro == 2){
+        sprintf(valor_convertido, "Valor debitado da conta: -R$%.2f\n", saldo_momentaneo);
+    }
+    strcat(log, valor_convertido);
+
 }
 
 //-------------------- Função main -----------------------/
