@@ -155,6 +155,15 @@ int Cadastramento(){
     char data_convertida[100];
     sprintf(data_convertida, "Data : %d / %d / %d\n", data[0], data[1], data[2]);
     strcat(log, data_convertida);
+    
+    puts(msg_final);
+    fprintf(cadastro_receita, log);
+
+    fclose(cadastro_receita);
+
+    escreve_saldo("Saldo.txt", resultado);
+
+    return 0;
 }
 
 //-------------------- Função main -----------------------/
