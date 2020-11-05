@@ -217,11 +217,11 @@ int main() {
     }
     else if(op == 2)
     {
-        relatorio_mov_12();
+        /* fazer */
     }
     else if(op == 3)
     {
-
+      /* fazer */
     }
     else if(op == 4)
     {
