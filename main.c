@@ -45,6 +45,38 @@ char* pega_string_lista(const int *input, char** lista, int tamanho_lista){
     return ptr;
 }
 
+//-------------------- obter o saldo -----------------------/
+float obter_saldo(char* filename){
+    FILE* file;
+    file = fopen(filename, "r+");
+
+    if (file == NULL){
+        fclose(file);
+
+        file = fopen(filename, "w+");
+        fputs("100.00", file);
+        fclose(file);
+
+        file = fopen(filename, "r+");
+    }
+
+    char linha[100];
+    fgets(linha, 100, file);
+    float value = 0;
+    value = strtof(linha, NULL);
+
+    fclose(file);
+
+    return value;
+}
+
+//-------------------- escrever o saldo -----------------------/
+void escreve_saldo(char* filename, float valor){
+    FILE* file = fopen(filename, "w+");
+    fprintf(file, "%.2f", valor);
+    fclose(file);
+}
+
 //-------------------- Função main -----------------------/
 int main() {
     printf("Sua conta começou, e voce inicialmente possui ou possuia um saldo de R$100,00\n");
