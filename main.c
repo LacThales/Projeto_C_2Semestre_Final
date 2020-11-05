@@ -145,7 +145,16 @@ int Cadastramento(){
         sprintf(valor_convertido, "Valor debitado da conta: -R$%.2f\n", saldo_momentaneo);
     }
     strcat(log, valor_convertido);
+    printf("Digite o dia: ");
+    pegar_input(&data[0], 1, 31, "Digite um dia valido: ");
+    printf("Digite o mes: ");
+    pegar_input(&data[1], 1, 12, "Digite um mês valido: ");
+    printf("Digite o ano: ");
+    pegar_input(&data[2], 1, 2020, "Digite um ano valido: ");
 
+    char data_convertida[100];
+    sprintf(data_convertida, "Data : %d / %d / %d\n", data[0], data[1], data[2]);
+    strcat(log, data_convertida);
 }
 
 //-------------------- Função main -----------------------/
