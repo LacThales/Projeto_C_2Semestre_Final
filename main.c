@@ -155,7 +155,7 @@ int Cadastramento(){
     char data_convertida[100];
     sprintf(data_convertida, "Data : %d / %d / %d\n", data[0], data[1], data[2]);
     strcat(log, data_convertida);
-    
+
     puts(msg_final);
     fprintf(cadastro_receita, log);
 
@@ -163,6 +163,28 @@ int Cadastramento(){
 
     escreve_saldo("Saldo.txt", resultado);
 
+    return 0;
+}
+
+//-------------------- Resetar os dados -----------------------/
+int resetar_dados(){
+    int saber = 0;
+    puts("Você tem certeza que deseja apagar todos os seus dados? Obs.: Apagar seus dados, nao apaga seu saldo. ");
+    puts("Digite 1 - Para sim e 2 - Para nao. ");
+    scanf("%d", &saber);
+    if (saber == 1){
+        FILE *apagar = fopen ( "Receita.txt", "r" );
+        if ( apagar ) {
+            fclose(apagar);
+            printf("Removido seus dados.");
+            remove("Receita.txt");
+            return 1;
+        }
+        else if (saber == 2){
+            puts("Ok! Saindo do programa.");
+            return 0;
+        }
+    }
     return 0;
 }
 
