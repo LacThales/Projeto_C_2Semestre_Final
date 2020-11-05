@@ -188,6 +188,14 @@ int resetar_dados(){
     return 0;
 }
 
+//-------------------- Mostrar saldo disponivel -----------------------/
+int most_saldo(){
+    char filename[50] = "Saldo.txt";
+    float saldo = obter_saldo(filename);
+    printf("Seu saldo atual disponivel é: %.2f", saldo);
+    return 0;
+}
+
 //-------------------- Função main -----------------------/
 int main() {
     printf("Sua conta começou, e voce inicialmente possui ou possuia um saldo de R$100,00\n");
