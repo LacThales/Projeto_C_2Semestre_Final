@@ -196,6 +196,17 @@ int most_saldo(){
     return 0;
 }
 
+//-------------------- Mostrar todos os relatórios -----------------------/
+int mostrar_todos_rel(){
+  FILE* cadastros = fopen("Receita.txt", "r");
+  char dados[99];
+  while(fgets(dados,99,cadastros) != NULL){
+    printf("%s", dados);
+  }
+  fclose(cadastros);
+  return 0;
+}
+
 //-------------------- Função main -----------------------/
 int main() {
     printf("Sua conta começou, e voce inicialmente possui ou possuia um saldo de R$100,00\n");
