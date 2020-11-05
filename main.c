@@ -98,7 +98,28 @@ int Cadastramento(){
     char valor_msg[100] = "";
     char descricao_msg[100] = "";
     char msg_final[100] = "";
+    int multiplicador = 1;
 
+    if (cadastro == 1){
+        strcat(log, "--------- Cadastro de receita -------- \n");
+        strcat(valor_msg, "\nDigite o valor desejado para adicionar a sua carteira: ");
+        strcat(descricao_msg, "Breve descricao da receita adicionada: \n");
+        strcat(msg_final, "Receita adicionada com sucesso!");
+    }
+    else if (cadastro == 2){
+        strcat(log, "--------- Cadastro dos gastos -------- \n");
+        strcat(valor_msg, "\nDigite o valor desejado para retirar da sua carteira: ");
+        strcat(descricao_msg, "Breve descricao do gasto: \n");
+        strcat(msg_final, "Gasto adicionado com sucesso!");
+        multiplicador = -1;
+    }
+
+    char** categoria = malloc(5 * sizeof(char*));
+    categoria[0] = "Categorização: Moradia\n";
+    categoria[1] = "Categorização: Estudos\n";
+    categoria[2] = "Categorização: Transporte\n";
+    categoria[3] = "Categorização: Alimentação\n";
+    categoria[4] = "Categorização: Trabalho\n";
 }
 
 //-------------------- Função main -----------------------/
