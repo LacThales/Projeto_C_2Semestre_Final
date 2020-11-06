@@ -77,6 +77,7 @@ void escreve_saldo(char* filename, float valor){
     fclose(file);
 }
 
+//-------------------- Cadastro -----------------------/
 int Cadastramento(){
     FILE *cadastro_receita;
     int fflush(FILE *cadastro_receita);
@@ -98,6 +99,7 @@ int Cadastramento(){
     char valor_msg[100] = "";
     char descricao_msg[100] = "";
     char msg_final[100] = "";
+
     int multiplicador = 1;
 
     if (cadastro == 1){
@@ -120,7 +122,9 @@ int Cadastramento(){
     categoria[2] = "Categorização: Transporte\n";
     categoria[3] = "Categorização: Alimentação\n";
     categoria[4] = "Categorização: Trabalho\n";
+
     strcat(log, pega_string_lista(&op, categoria, 5));
+
     char filename[50] = "Saldo.txt";
     float saldo = obter_saldo(filename);
 
@@ -144,7 +148,9 @@ int Cadastramento(){
     else if (cadastro == 2){
         sprintf(valor_convertido, "Valor debitado da conta: -R$%.2f\n", saldo_momentaneo);
     }
+
     strcat(log, valor_convertido);
+
     printf("Digite o dia: ");
     pegar_input(&data[0], 1, 31, "Digite um dia valido: ");
     printf("Digite o mes: ");
@@ -162,7 +168,33 @@ int Cadastramento(){
     fclose(cadastro_receita);
 
     escreve_saldo("Saldo.txt", resultado);
-
+    
+    // ------------------------ Relatório dos últimos 12 meses ------------------------/
+    int resposta = 0;
+    printf("Deseja ver o relatorio dos ultimos 12 meses? 1 - para sim , 2 - para nao.\n");
+    scanf("%d", &resposta);
+    if (resposta == 1){ 
+        struct tm *data_hora_atual;  
+        time_t segundos;
+        time(&segundos);  
+        data_hora_atual = localtime(&segundos);  
+        int mes = data_hora_atual->tm_mon+1;
+        int ano = data_hora_atual->tm_year+1900;
+        while(data[2] == ano - 1 && data[1] == mes - 1){
+            FILE* relatorio = fopen("relatorio.html", "w");
+            fputs("<html>", relatorio);
+            fputs("<style>",relatorio);
+            fputs("table, th, td {border: 1px solid black}",relatorio);
+            fputs("</style>",relatorio);
+            fputs("<title >Relatorio do Ano</title>", relatorio);
+            fputs("<body>", relatorio);
+            fputs("<h1>Relatorio do Ano</h1>", relatorio);
+            fprintf(relatorio,"<p>o ano escolhido foi: %d</p>", data[2]);
+            
+    }
+    }else{
+        return 0;
+    }
     return 0;
 }
 
@@ -188,15 +220,7 @@ int resetar_dados(){
     return 0;
 }
 
-//-------------------- Mostrar saldo disponivel -----------------------/
-int most_saldo(){
-    char filename[50] = "Saldo.txt";
-    float saldo = obter_saldo(filename);
-    printf("Seu saldo atual disponivel é: %.2f", saldo);
-    return 0;
-}
-
-//-------------------- Mostrar todos os relatórios -----------------------/
+//-------------------- Mostrar relatório geral -----------------------/
 int mostrar_todos_rel(){
   FILE* cadastros = fopen("Receita.txt", "r");
   char dados[99];
@@ -206,6 +230,14 @@ int mostrar_todos_rel(){
   fclose(cadastros);
   return 0;
 }
+
+int most_saldo(){
+    char filename[50] = "Saldo.txt";
+    float saldo = obter_saldo(filename);
+    printf("Seu saldo atual disponivel é: %.2f", saldo);
+    return 0;
+}
+
 
 //-------------------- Função main -----------------------/
 int main() {
@@ -217,11 +249,11 @@ int main() {
     }
     else if(op == 2)
     {
-        /* fazer */
+
     }
     else if(op == 3)
     {
-      /* fazer */
+
     }
     else if(op == 4)
     {
