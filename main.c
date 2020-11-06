@@ -190,7 +190,21 @@ int Cadastramento(){
             fputs("<body>", relatorio);
             fputs("<h1>Relatorio do Ano</h1>", relatorio);
             fprintf(relatorio,"<p>o ano escolhido foi: %d</p>", data[2]);
-            
+            fputs("<table style: border:1px solid black>",relatorio);
+            fputs("<tr>",relatorio);
+            fputs("<th>Moradia</th>",relatorio);
+            fputs("<th>Estudos</th>",relatorio);
+            fputs("<th>Transporte</th>",relatorio);
+            fputs("<th>Alimentação</th>",relatorio);
+            fputs("<th>Trabalho</th>",relatorio);
+            fputs("</tr>",relatorio);
+            fputs("<tr>",relatorio);
+            fprintf(relatorio,"<td>%d<td>", data[0]);
+            fputs("</tr>",relatorio);
+            fputs("</table>",relatorio);
+            fputs("</body>", relatorio);
+            fputs("</html>", relatorio);
+            fclose(relatorio);       
     }
     }else{
         return 0;
