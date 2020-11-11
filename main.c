@@ -170,45 +170,6 @@ int Cadastramento(){
     escreve_saldo("Saldo.txt", resultado);
     
     // ------------------------ Relatório dos últimos 12 meses ------------------------/
-    int resposta = 0;
-    printf("Deseja ver o relatorio dos ultimos 12 meses? 1 - para sim , 2 - para nao.\n");
-    scanf("%d", &resposta);
-    if (resposta == 1){ 
-        struct tm *data_hora_atual;  
-        time_t segundos;
-        time(&segundos);  
-        data_hora_atual = localtime(&segundos);  
-        int mes = data_hora_atual->tm_mon+1;
-        int ano = data_hora_atual->tm_year+1900;
-        while(data[2] == ano - 1 && data[1] == mes - 1){
-            FILE* relatorio = fopen("relatorio.html", "w");
-            fputs("<html>", relatorio);
-            fputs("<style>",relatorio);
-            fputs("table, th, td {border: 1px solid black}",relatorio);
-            fputs("</style>",relatorio);
-            fputs("<title >Relatorio do Ano</title>", relatorio);
-            fputs("<body>", relatorio);
-            fputs("<h1>Relatorio do Ano</h1>", relatorio);
-            fprintf(relatorio,"<p>o ano escolhido foi: %d</p>", data[2]);
-            fputs("<table style: border:1px solid black>",relatorio);
-            fputs("<tr>",relatorio);
-            fputs("<th>Moradia</th>",relatorio);
-            fputs("<th>Estudos</th>",relatorio);
-            fputs("<th>Transporte</th>",relatorio);
-            fputs("<th>Alimentação</th>",relatorio);
-            fputs("<th>Trabalho</th>",relatorio);
-            fputs("</tr>",relatorio);
-            fputs("<tr>",relatorio);
-            fprintf(relatorio,"<td>%d<td>", data[0]);
-            fputs("</tr>",relatorio);
-            fputs("</table>",relatorio);
-            fputs("</body>", relatorio);
-            fputs("</html>", relatorio);
-            fclose(relatorio);       
-    }
-    }else{
-        return 0;
-    }
     return 0;
 }
 
@@ -232,6 +193,29 @@ int resetar_dados(){
         }
     }
     return 0;
+}
+
+// ------------------------ Relatório dos últimos 12 meses ------------------------/
+void relatorio_ano(FILE* arquivo){
+    char lista_relatorio[6][100];
+    FILE* relatorio = fopen("relatorio.html", "w");
+    fputs("<html>", relatorio);
+    fputs("<style>",relatorio);
+    fputs("table, th, td {border: 1px solid black}",relatorio);
+    fputs("</style>",relatorio);
+    fputs("<title >Relatorio do Ano</title>", relatorio);
+    fputs("<body>", relatorio);
+    fputs("<h1>Relatorio dos últimos 12 meses</h1>", relatorio);
+    fputs("<table style: border:1px solid black>",relatorio);
+    fputs("<tr>",relatorio);
+    fputs("<th>Moradia</th>",relatorio);
+    fputs("<th>Estudos</th>",relatorio);
+    fputs("<th>Transporte</th>",relatorio);
+    fputs("<th>Alimentação</th>",relatorio);
+    fputs("<th>Trabalho</th>",relatorio);
+    fputs("<th>Datas</th>",relatorio);
+    fputs("</tr>",relatorio);
+
 }
 
 //-------------------- Mostrar relatório geral -----------------------/
