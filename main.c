@@ -238,6 +238,46 @@ void relatorio_ano(FILE* arquivo){
     }
 }
 
+// conta quantas palavras tem dentro de uma lista, para diminuir lixo de memória, vai ler apenas o tanto de palavras que tem, assim não precisa pegar por ex
+// lista[100][100].
+int contapalavra(char* palavra){
+    int contador = 0;
+    for(int i=0;i<=(strlen(palavra));i++)
+    {
+        if(palavra[i]== ' ' || palavra[i]=='\0')
+        {
+            contador++;    
+        }
+    }
+    return contador;
+}
+// Função para fazer split (mesma coisa do python)
+char** separapalavra(char separacao,char* palavra,int tamanho){
+    int j = 0;
+    int ctr = 0;
+    char** ptr = malloc(sizeof(char*) * 100);
+    for (int i = 0; i < 100; i++)
+    {
+        ptr[i] = malloc(sizeof(char) * 100);
+    }
+    
+    for(int i=0;i<=(strlen(palavra));i++)
+    {
+        if(palavra[i]== separacao ||palavra[i]=='\0')
+        {
+            ptr[ctr][j]='\0';
+            ctr++;  // próxima palavra
+            j=0;    //próxima palavra iniciando no indice 0.
+        }
+        else
+        {
+            ptr[ctr][j]=palavra[i];
+            j++;
+        }
+    }
+    return ptr;
+}
+
 //-------------------- Mostrar relatório geral -----------------------/
 int mostrar_todos_rel(){
   FILE* cadastros = fopen("Receita.txt", "r");
