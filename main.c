@@ -215,7 +215,27 @@ void relatorio_ano(FILE* arquivo){
     fputs("<th>Trabalho</th>",relatorio);
     fputs("<th>Datas</th>",relatorio);
     fputs("</tr>",relatorio);
-
+    //float indices[5] = {0,0,0,0,0};
+    float* indices = malloc(5 * sizeof(float));
+    indices[0] = 0; //Moradia
+    indices[1] = 0; //Transporte
+    indices[2] = 0; //Trabalho
+    indices[3] = 0; //Estudos
+    indices[4] = 0; //Alimentação
+    
+    while(fgets(lista_relatorio[0],100,arquivo) != NULL){
+        indices[0] = 0; //Moradia
+        indices[1] = 0; //Transporte
+        indices[2] = 0; //Trabalho
+        indices[3] = 0; //Estudos
+        indices[4] = 0; //Alimentação
+        fgets(lista_relatorio[1],100,arquivo);
+        fgets(lista_relatorio[2],100,arquivo);
+        fgets(lista_relatorio[3],100,arquivo);
+        fgets(lista_relatorio[4],100,arquivo);
+        int caracteres = contapalavra(lista_relatorio[4]);
+        char **data = separapalavra(' ',lista_relatorio[4],caracteres);
+    }
 }
 
 //-------------------- Mostrar relatório geral -----------------------/
