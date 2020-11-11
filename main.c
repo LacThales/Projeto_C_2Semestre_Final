@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+int contapalavra(char* palavra);
+char** separapalavra(char separacao,char* palavra,int tamanho);
+int somaNoIndice(char* lista_relatorio);
 // Só roda no VSstudio, não está rodando no repl.it /
 
 //-------------------- Menu cliente -----------------------/
@@ -235,7 +238,20 @@ void relatorio_ano(FILE* arquivo){
         fgets(lista_relatorio[4],100,arquivo);
         int caracteres = contapalavra(lista_relatorio[4]);
         char **data = separapalavra(' ',lista_relatorio[4],caracteres);
+        float valor = strtof(separapalavra(' ', lista_relatorio[3], contapalavra(lista_relatorio[3]))[contapalavra(lista_relatorio[3]) - 2], NULL);
+        char** cadastro = separapalavra(' ', lista_relatorio[0], contapalavra(lista_relatorio[0]));
+        // VERIFICAÇÃO DO ANO //
+        int year = atoi(data[caracteres-1]);
+        int month = atoi(data[caracteres-3]);
+        struct tm *data_hora_atual;
+        time_t segundos;
+        time(&segundos);
+        data_hora_atual = localtime(&segundos);
+        int mes_atual = data_hora_atual->tm_mon+1;
+        int ano_atual = data_hora_atual->tm_year+1900;
+        /* colocar verificação 12 meses*/
     }
+    /* colocar os fechamentos table, body, html e relatorio */
 }
 
 // conta quantas palavras tem dentro de uma lista, para diminuir lixo de memória, vai ler apenas o tanto de palavras que tem, assim não precisa pegar por ex
