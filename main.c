@@ -299,6 +299,38 @@ void relatorio_ano(FILE* arquivo){
     fclose(relatorio);
 }
 
+// ----------------- Relatório por categoria do último mes ------------------- //
+//pegamos o num_cat como parametro pq lá na main qnd vamos chamar a função, a variavel resposta está como int e vamos precisar desse int para fazer o if 
+//da condição das categorias.
+int relatorio_cat(FILE* arquivo){
+    char lista_relatorio[6][100];
+    FILE* relatorio = fopen("relatorioCategorias.html", "w");
+    fputs("<html>", relatorio);
+    fputs("<style>",relatorio);
+    fputs("table, th, td {border: 1px solid black}",relatorio);
+    fputs("</style>",relatorio);
+    fputs("<title >Relatorio do mes</title>", relatorio);
+    fputs("<body>", relatorio);
+    fputs("<h1>Relatorio de todas as categorias do ultimo mes</h1>", relatorio);
+    fputs("<table style: border:1px solid black>",relatorio);
+    fputs("<tr>",relatorio);
+    fputs("<th>Moradia</th>",relatorio);
+    fputs("<th>Estudos</th>",relatorio);
+    fputs("<th>Transporte</th>",relatorio);
+    fputs("<th>Alimentação</th>",relatorio);
+    fputs("<th>Trabalho</th>",relatorio);
+    fputs("<th>Datas</th>",relatorio);
+    fputs("</tr>",relatorio);
+
+    //float indices[5] = {0,0,0,0,0};
+    float* indices = malloc(5 * sizeof(float));
+    indices[0] = 0; //Moradia
+    indices[1] = 0; //Transporte
+    indices[2] = 0; //Trabalho
+    indices[3] = 0; //Estudos
+    indices[4] = 0; //Alimentação
+
+}   
 // conta quantas palavras tem dentro de uma lista, para diminuir lixo de memória, vai ler apenas o tanto de palavras que tem, assim não precisa pegar por ex
 // lista[100][100].
 int contapalavra(char* palavra){
@@ -368,11 +400,11 @@ int main() {
     }
     else if(op == 2)
     {
-
+      relatorio_ano(fopen("Receita.txt","r"));
     }
     else if(op == 3)
     {
-
+      relatorio_cat(fopen("Receita.txt", "r"));
     }
     else if(op == 4)
     {
