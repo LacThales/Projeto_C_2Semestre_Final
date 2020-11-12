@@ -329,7 +329,57 @@ int relatorio_cat(FILE* arquivo){
     indices[2] = 0; //Trabalho
     indices[3] = 0; //Estudos
     indices[4] = 0; //Alimentação
+    while(fgets(lista_relatorio[0],100,arquivo) != NULL){
+        indices[0] = 0; //Moradia
+        indices[1] = 0; //Transporte
+        indices[2] = 0; //Trabalho
+        indices[3] = 0; //Estudos
+        indices[4] = 0; //Alimentação
+        fgets(lista_relatorio[1],100,arquivo);
+        fgets(lista_relatorio[2],100,arquivo);
+        fgets(lista_relatorio[3],100,arquivo);
+        fgets(lista_relatorio[4],100,arquivo);
+        int caracteres = contapalavra(lista_relatorio[4]);
+        char **data = separapalavra(' ',lista_relatorio[4],caracteres); 
+        // VERIFICAÇÃO DO ANO //
+        float valor = strtof(separapalavra(' ', lista_relatorio[3], contapalavra(lista_relatorio[3]))[contapalavra(lista_relatorio[3]) - 2], NULL);
+        char** cadastro = separapalavra(' ', lista_relatorio[0], contapalavra(lista_relatorio[0]));
 
+        int year = atoi(data[caracteres-1]);
+        int month = atoi(data[caracteres-3]);
+        struct tm *data_hora_atual;
+        time_t segundos;
+        time(&segundos);
+        data_hora_atual = localtime(&segundos);
+        int mes_atual = data_hora_atual->tm_mon+1;
+        int ano_atual = data_hora_atual->tm_year+1900;
+        // --------------------- verificação do último mês --------------------------
+        if(year == ano_atual){
+                if(month == mes_atual - 1){
+                int multiplicador = 1;
+                if(strcmp(cadastro[contapalavra(lista_relatorio[0])-3], "gastos") == 0){
+                    multiplicador = -1;
+                }
+                valor *= multiplicador;
+                int pos = somaNoIndice(lista_relatorio[1]);
+                indices[pos] = valor;
+                }else{
+                    break;
+                }
+            }
+        int k = 0;
+        fputs("<tr>",relatorio);
+        for(int i = 0; i < 5; i ++){
+            fprintf(relatorio,"<td>%.2f</td>", indices[i]);
+        }
+        fprintf(relatorio,"<td>%s</td>", lista_relatorio[4]);
+        fputs("</tr>",relatorio);
+    }
+
+    fputs("</table>",relatorio);
+    fputs("</body>", relatorio);
+    fputs("</html>", relatorio);
+    fclose(relatorio);
 }   
 // conta quantas palavras tem dentro de uma lista, para diminuir lixo de memória, vai ler apenas o tanto de palavras que tem, assim não precisa pegar por ex
 // lista[100][100].
