@@ -371,6 +371,29 @@ char** separapalavra(char separacao,char* palavra,int tamanho){
     return ptr;
 }
 
+ // verificar qual categoria está chamando e adicionar o valor na variavel indice
+int somaNoIndice(char* lista_relatorio){
+    int indice = 0;
+
+    if(strcmp(lista_relatorio, "Categorizacao: Moradia\n") == 0){
+        indice = 0;
+    }
+    else if(strcmp(lista_relatorio, "Categorizacao: Estudos\n") == 0){
+        indice = 1;
+    }
+    else if(strcmp(lista_relatorio, "Categorizacao: Transporte\n") == 0){
+        indice = 2;
+    }
+    else if(strcmp(lista_relatorio, "Categorizacao: Alimentacao\n") == 0){
+        indice = 3;
+    }
+    else if(strcmp(lista_relatorio, "Categorizacao: Trabalho\n") == 0){
+        indice = 4;
+    }
+
+    return indice;
+}
+
 //-------------------- Mostrar relatório geral -----------------------/
 int mostrar_todos_rel(){
   FILE* cadastros = fopen("Receita.txt", "r");
