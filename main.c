@@ -249,9 +249,54 @@ void relatorio_ano(FILE* arquivo){
         data_hora_atual = localtime(&segundos);
         int mes_atual = data_hora_atual->tm_mon+1;
         int ano_atual = data_hora_atual->tm_year+1900;
-        /* colocar verificação 12 meses*/
+        // --------------------- verificação dos últimos 12 meses --------------------------
+        if (year < ano_atual - 1 || year > ano_atual)
+        {
+            continue;
+        }else{
+            if(year == ano_atual - 1){
+
+                if(month < mes_atual){
+                    continue; 
+                }
+                else{
+                    int multiplicador = 1;
+                    if(strcmp(cadastro[contapalavra(lista_relatorio[0])-3], "gastos") == 0){
+                        multiplicador = -1;
+                    }
+                    valor *= multiplicador;
+                    int pos = somaNoIndice(lista_relatorio[1]);
+                    indices[pos] = valor;
+                }
+
+            }else if(year == ano_atual){
+                if(month > mes_atual){
+                    continue;
+                }else{
+                    int multiplicador = 1;
+                    if(strcmp(cadastro[contapalavra(lista_relatorio[0])-3], "gastos") == 0){
+                        multiplicador = -1;
+                    }
+                    valor *= multiplicador;
+                    
+                    int pos = somaNoIndice(lista_relatorio[1]);
+                    indices[pos] = valor;
+                }
+            }
+        }
+        int k = 0;
+        fputs("<tr>",relatorio);
+        for(int i = 0; i < 5; i ++){
+            fprintf(relatorio,"<td>%.2f</td>", indices[i]);
+        }
+        fprintf(relatorio,"<td>%s</td>", lista_relatorio[4]);
+        fputs("</tr>",relatorio);
     }
-    /* colocar os fechamentos table, body, html e relatorio */
+
+    fputs("</table>",relatorio);
+    fputs("</body>", relatorio);
+    fputs("</html>", relatorio);
+    fclose(relatorio);
 }
 
 // conta quantas palavras tem dentro de uma lista, para diminuir lixo de memória, vai ler apenas o tanto de palavras que tem, assim não precisa pegar por ex
