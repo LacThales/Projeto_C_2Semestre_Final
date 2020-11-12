@@ -171,8 +171,6 @@ int Cadastramento(){
     fclose(cadastro_receita);
 
     escreve_saldo("Saldo.txt", resultado);
-    
-    // ------------------------ Relatório dos últimos 12 meses ------------------------/
     return 0;
 }
 
