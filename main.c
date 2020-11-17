@@ -108,14 +108,14 @@ int Cadastramento(){
     if (cadastro == 1){
         strcat(log, "--------- Cadastro de receita -------- \n");
         strcat(valor_msg, "\nDigite o valor desejado para adicionar a sua carteira: ");
-        strcat(descricao_msg, "Breve descricao da receita adicionada: \n");
-        strcat(msg_final, "Receita adicionada com sucesso!");
+        strcat(descricao_msg, "Breve descricao da receita adicionada: ");
+        strcat(msg_final, "\nReceita adicionada com sucesso!");
     }
     else if (cadastro == 2){
         strcat(log, "--------- Cadastro dos gastos -------- \n");
         strcat(valor_msg, "\nDigite o valor desejado para retirar da sua carteira: ");
-        strcat(descricao_msg, "Breve descricao do gasto: \n");
-        strcat(msg_final, "Gasto adicionado com sucesso!");
+        strcat(descricao_msg, "Breve descricao do gasto: ");
+        strcat(msg_final, "\nGasto adicionado com sucesso!");
         multiplicador = -1;
     }
 
