@@ -361,17 +361,17 @@ int relatorio_cat(FILE* arquivo){
                 valor *= multiplicador;
                 int pos = somaNoIndice(lista_relatorio[1]);
                 indices[pos] = valor;
+                int k = 0;
+                fputs("<tr>",relatorio);
+                for(int i = 0; i < 5; i ++){
+                    fprintf(relatorio,"<td>%.2f</td>", indices[i]);
+                  }
                 }else{
                     break;
                 }
+                fprintf(relatorio,"<td>%s</td>", lista_relatorio[4]);
+                fputs("</tr>",relatorio);
             }
-        int k = 0;
-        fputs("<tr>",relatorio);
-        for(int i = 0; i < 5; i ++){
-            fprintf(relatorio,"<td>%.2f</td>", indices[i]);
-        }
-        fprintf(relatorio,"<td>%s</td>", lista_relatorio[4]);
-        fputs("</tr>",relatorio);
     }
 
     fputs("</table>",relatorio);
