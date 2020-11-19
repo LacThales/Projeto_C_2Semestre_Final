@@ -6,7 +6,6 @@
 int contapalavra(char* palavra);
 char** separapalavra(char separacao,char* palavra,int tamanho);
 int somaNoIndice(char* lista_relatorio);
-// Só roda no VSstudio, não está rodando no repl.it /
 
 //-------------------- Menu cliente -----------------------/
 int menu(){
@@ -35,15 +34,9 @@ void pegar_input(int* input, int start, int end, char* msg){
 }
 
 //-------------------- Pega str de uma lista -----------------------/
-char* pega_string_lista(const int *input, char** lista, int tamanho_lista){
+char* pega_string_lista(const int* input, char lista[][100], int tamanho_lista){
     char * ptr = NULL;
-
-    for(int i = 0; i < tamanho_lista; i++){
-        if (*input-1 == i){
-            ptr = lista[i];
-            break;
-        }
-    }
+    ptr = lista[*input-1];
 
     return ptr;
 }
@@ -57,7 +50,7 @@ float obter_saldo(char* filename){
         fclose(file);
 
         file = fopen(filename, "w+");
-        fputs("100.00", file);
+        fputs("000.00", file);
         fclose(file);
 
         file = fopen(filename, "r+");
@@ -119,12 +112,12 @@ int Cadastramento(){
         multiplicador = -1;
     }
 
-    char** categoria = malloc(5 * sizeof(char*));
-    categoria[0] = "Categorização: Moradia\n";
-    categoria[1] = "Categorização: Estudos\n";
-    categoria[2] = "Categorização: Transporte\n";
-    categoria[3] = "Categorização: Alimentação\n";
-    categoria[4] = "Categorização: Trabalho\n";
+    char categoria[5][100];
+    strcpy(categoria[0], "Categorizacao: Moradia\n");
+    strcpy(categoria[1], "Categorizacao: Estudos\n");
+    strcpy(categoria[2], "Categorizacao: Transporte\n");
+    strcpy(categoria[3], "Categorizacao: Alimentacao\n");
+    strcpy(categoria[4], "Categorizacao: Trabalho\n");
 
     strcat(log, pega_string_lista(&op, categoria, 5));
 
@@ -146,10 +139,10 @@ int Cadastramento(){
 
     char valor_convertido[100];
     if (cadastro == 1){
-        sprintf(valor_convertido, "Valor adicionado a conta: +R$%.2f\n", saldo_momentaneo);
+        sprintf(valor_convertido, "Valor adicionado a conta: %.2f \n", saldo_momentaneo);
     }
     else if (cadastro == 2){
-        sprintf(valor_convertido, "Valor debitado da conta: -R$%.2f\n", saldo_momentaneo);
+        sprintf(valor_convertido, "Valor debitado da conta: %.2f \n", saldo_momentaneo);
     }
 
     strcat(log, valor_convertido);
@@ -182,10 +175,19 @@ int resetar_dados(){
     scanf("%d", &saber);
     if (saber == 1){
         FILE *apagar = fopen ( "Receita.txt", "r" );
+        FILE *apagar2 = fopen ( "Saldo.txt", "r" );
+        FILE *apagar3 = fopen ( "relatorio.html", "r" );
+        FILE *apagar4 = fopen ( "relatorioCategorias.html", "r" );
         if ( apagar ) {
             fclose(apagar);
+            fclose(apagar2);
+            fclose(apagar3);
+            fclose(apagar4);
             printf("Removido seus dados.");
             remove("Receita.txt");
+            remove("Saldo.txt");
+            remove("relatorio.html");
+            remove("relatorioCategorias.html");
             return 1;
         }
         else if (saber == 2){
@@ -456,14 +458,13 @@ int mostrar_todos_rel(){
 int most_saldo(){
     char filename[50] = "Saldo.txt";
     float saldo = obter_saldo(filename);
-    printf("Seu saldo atual disponivel é: %.2f", saldo);
+    printf("Seu saldo atual disponivel e: %.2f", saldo);
     return 0;
 }
 
 
 //-------------------- Função main -----------------------/
 int main() {
-    printf("Sua conta começou, e voce inicialmente possui ou possuia um saldo de R$100,00\n");
     int op = menu();
     if(op == 1)
     {
